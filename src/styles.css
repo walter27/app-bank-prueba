@@ -1,0 +1,454 @@
+:root {
+    /* Colores principales */
+    --primary-color: #FFDD00;
+    --secondary-color: #cccccf;
+
+    /* Colores de texto */
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --text-disabled: #9e9e9e;
+
+    /* Fondo y superficie */
+    --background-color: #f5f5f5;
+    --surface-color: #ffffff;
+
+    /* Espaciado */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Bordes */
+    --border-radius: 8px;
+    --border-width: 1px;
+    --border-color: #e0e0e0;
+
+    /* Fuentes */
+    --font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+
+    /* Z-index */
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-modal: 1050;
+    --z-index-popover: 1070;
+    --z-index-tooltip: 1080;
+}
+
+/* ==========================================================================
+   CONTAINERS & GRID SYSTEM
+   ========================================================================== */
+
+/* Container base */
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--spacing-xl);
+    padding-left: var(--spacing-xl);
+}
+
+
+
+/* Grid System con CSS Grid */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+
+}
+
+/* Columnas responsivas */
+.grid-cols-1 {
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
+}
+
+.grid-cols-2 {
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+}
+
+.grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-cols-10 {
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+}
+
+.grid-cols-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-end {
+    justify-content: end;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.m-top-4 {
+    margin-top: var(--spacing-md);
+}
+
+.m-top-8 {
+    margin-top: var(--spacing-xl);
+}
+
+.m-bottom-8 {
+    margin-bottom: var(--spacing-xl);
+}
+
+.b-bottom-4 {
+    border-bottom: var(--spacing-md);
+}
+
+.m-left-4 {
+    margin-left: var(--spacing-md);
+}
+
+.m-left-2 {
+    margin-left: var(--spacing-sm);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Estilo base del input */
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    /* gris claro */
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Focus normal */
+.form-input:focus {
+    border-color: #2563eb;
+    /* azul */
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Input con error */
+.form-input.error {
+    border-color: #ef4444;
+    /* rojo */
+    background-color: #fff5f5;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+}
+
+/* Texto de error */
+.form-error {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+
+/* Base de botón */
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+/* Hover & Active */
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+.btn:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+}
+
+/* Deshabilitado */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ========================= */
+/* Variantes */
+/* ========================= */
+
+/* Primario (Guardar / Aceptar) */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.35);
+}
+
+/* Secundario */
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: #111827;
+    color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+/* Peligro / Cancelar / Eliminar */
+.btn-danger {
+    background-color: #ef4444;
+    /* rojo */
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 6px 14px rgba(239, 68, 68, 0.35);
+}
+
+/* Botón outline (opcional) */
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+}
+
+.btn-outline:hover {
+    background-color: #2563eb;
+    color: #fff;
+}
+
+/* Overlay (fondo oscuro) */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+    overflow: scroll;
+}
+
+/* Contenedor del modal */
+.modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+    animation: scaleIn 0.2s ease;
+}
+
+/* Header */
+.modal-header {
+    padding: 14px 18px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Body */
+.modal-body {
+    color: #111827;
+    font-size: 14px;
+    padding-right: 80px;
+    padding-left: 50px;
+}
+
+/* Footer */
+.modal-footer {
+    padding: 12px 18px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Botón cerrar (X) */
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.modal-close:hover {
+    color: #111827;
+}
+
+.table-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+    /* responsive horizontal */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table thead {
+    background: #f5f7fa;
+}
+
+.table th {
+    text-align: left;
+    padding: 12px 10px;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f1f1f1;
+}
+
+.select {
+    appearance: none;
+    /* Quita estilo por defecto */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding: 8px 36px 8px 12px;
+    /* espacio para la flecha */
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+    min-width: 70px;
+
+    /* Flecha personalizada */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%236b7280' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548a.75.75 0 011.06 0L10 10.972l3.424-3.424a.75.75 0 111.06 1.06l-3.954 3.955a.75.75 0 01-1.06 0L5.516 8.608a.75.75 0 010-1.06z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.select:hover {
+    border-color: #9ca3af;
+    background-color: #fff;
+}
+
+/* Focus */
+.select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    background-color: #fff;
+}
+
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.96);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

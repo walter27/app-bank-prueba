@@ -1,0 +1,50 @@
+@let productsHtml = products();
+<div class="grid justify-between ">
+    <div class="grid-cols-6 m-bottom-8">
+        <label for="search">Buscar producto</label>
+        <input class="form-input" type="text" id="search" placeholder="Search" (keyup)="onSearch($event)">
+    </div>
+    <div class="grid-cols-2 m-bottom-8">
+        <button class="btn w-100 btn-primary m-top-4" (click)="addProduct()">Agregar</button>
+    </div>
+    <div class="grid-cols-12">
+        <div class="table-container">
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        @for (header of headers; track $index) {
+                        <th>{{ header }}</th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (product of productsHtml; track product.id) {
+                    <tr>
+                        <td><img [src]="product.logo" alt="Logo de {{product.name}}"></td>
+                        <td>{{product.name}} </td>
+                        <td>{{product.description}} </td>
+                        <td>{{product.dateRelease}} </td>
+                        <td>{{product.dateRevision}} </td>
+                        <td>
+                            <select>
+                                <option class="select" value="active">...</option>
+                                <option (click)="editProduct(product.id)">Editar</option>
+                                <option (click)="deleteProduct(product.id, product.name)" value="inactive">Eliminar
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="justify-end d-flex  grid-cols-12">
+        <select class="select" (change)="onPageChange($event)">
+            @for (page of pages; track page) {
+            <option value="{{page}}" [selected]="page === currentPage">{{page}}</option>
+            }
+        </select>
+    </div>
+</div>

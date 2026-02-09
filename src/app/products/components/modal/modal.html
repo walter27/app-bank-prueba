@@ -1,0 +1,104 @@
+@let modalHtml = modal();
+@if(modalHtml.enabled) {
+<div class="grid justify-center modal-backdrop">
+    <div class=" modal grid-cols-4">
+        <div class="modal-header">
+            <span>Producto</span>
+            <button class="modal-close" (click)="close()">×</button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="grid ">
+                    <div class="grid-cols-12 m-top-4">
+
+                        <label for="id">ID</label>
+                        <input class="form-input" type="text" formControlName="id"
+                            [class.error]="form.controls.id.touched && form.controls.id.invalid">
+                        @if(form.controls.id.touched && form.controls.id.errors?.['required']) {
+                        <small class="form-error">Id requerido</small>
+                        }
+                        @if(form.controls.id.touched && form.controls.id.errors?.['minlength']) {
+                        <small>Mínimo 3 caracteres</small>
+                        }
+                        @if(form.controls.id.touched && form.controls.id.errors?.['maxlength']) {
+                        <small>Máximo 10 caracteres</small>
+                        }
+                    </div>
+                    <div class="grid-cols-12 m-top-4">
+
+                        <label for="descripcion">Descripción</label>
+                        <input class="form-input" type="text" formControlName="description"
+                            [class.error]="form.controls.description.touched && form.controls.description.invalid">
+                        @if(form.controls.description.touched && form.controls.description.errors?.['required']) {
+                        <small class="form-error">Descripción requerida</small>
+                        }
+                        @if(form.controls.description.touched && form.controls.description.errors?.['minlength']) {
+                        <small class="form-error">Mínimo 10 caracteres</small>
+                        }
+                        @if(form.controls.description.touched && form.controls.description.errors?.['maxlength']) {
+                        <small class="form-error">Máximo 200 caracteres</small>
+                        }
+                    </div>
+                    <div class="grid-cols-12 m-top-4">
+                        <label for="dateRelease">Fecha de liberación</label>
+                        <input class="form-input" type="date" formControlName="dateRelease"
+                            [class.error]="form.controls.dateRelease.touched && form.controls.dateRelease.invalid">
+                        @if(form.controls.dateRelease.touched && form.controls.dateRelease.errors?.['required']) {
+                        <small class="form-error">Fecha de liberación requerida</small>
+                        }
+                        @if(form.controls.dateRelease.errors?.['fechaMenorHoy']) {
+                        <small class="form-error">La fecha debe ser hoy o posterior</small>
+                        }
+
+                    </div>
+                    <div class="grid-cols-12 m-top-4">
+                        <label for="nombre">Nombre</label>
+                        <input class="form-input" type="text" formControlName="name"
+                            [class.error]="form.controls.name.touched && form.controls.name.invalid">
+                        @if(form.controls.name.touched && form.controls.name.errors?.['required']) {
+                        <small class="form-error">Nombre requerido</small>
+                        }
+                        @if(form.controls.name.touched && form.controls.name.errors?.['minlength']) {
+                        <small class="form-error">Mínimo 5 caracteres</small>
+                        }
+                        @if(form.controls.name.touched && form.controls.name.errors?.['maxlength']) {
+                        <small class="form-error">Máximo 100 caracteres</small>
+                        }
+                    </div>
+                    <div class="grid-cols-12 m-top-4">
+                        <label for="logo">Logo</label>
+                        <input class="form-input" type="text" formControlName="logo"
+                            [class.error]="form.controls.logo.touched && form.controls.logo.invalid">
+                        @if(form.controls.logo.touched && form.controls.logo.errors?.['required']) {
+                        <small class="form-error">Logo requerido</small>
+                        }
+                    </div>
+                    <div class="grid-cols-12 m-top-4">
+                        <label for="date">Fecha de revisión</label>
+                        <input class="form-input" type="date" formControlName="dateRevision"
+                            [class.error]="(form.controls.dateRevision.touched && form.controls.dateRevision.invalid) || form.errors?.['revisionNoEsUnAnioDespues']">
+                        @if(form.controls.dateRevision.touched && form.controls.dateRevision.errors?.['required']) {
+                        <small class="form-error">Fecha de revisión requerida</small>
+                        }
+                        @if(form.errors?.['revisionNoEsUnAnioDespues']) {
+                        <small class="form-error">La fecha de revisión debe ser exactamente 1 año después de la
+                            liberación</small>
+                        }
+
+                    </div>|
+                </div>
+                <div class="modal-footer">
+                    <div class="grid-cols-6 m-top-8 w-50">
+                        <button class="m-left-2 w-100 btn  btn-secondary" type="button"
+                            (click)="close()">Reinciar</button>
+                    </div>
+                    <div class="grid-cols-6 m-top-8 w-50 ">
+                        <button class="m-left-4 w-100 btn btn-primary" type="submit"
+                            [disabled]="form.invalid">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+}
