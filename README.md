@@ -1,59 +1,122 @@
-# Bank
+# App Bank Prueba
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.15.
+Este proyecto implementa **Screaming Architecture / Clean Architecture en Front-End**.
 
-## Development server
+Referencia recomendada:
+- https://the-amazing-gentleman-programming-book.vercel.app/es/book/Chapter08_Clean_Architecture_Front_End
 
-To start a local development server, run:
+## Estructura de carpetas
 
-```bash
-ng serve
+```text
+src/
+├─ app/
+│  ├─ components/
+│  │  ├─ form/
+│  │  ├─ message/
+│  │  ├─ modal/
+│  │  └─ table/
+│  ├─ models/
+│  ├─ product/
+│  │  ├─ adapters/
+│  │  ├─ config/
+│  │  ├─ models/
+│  │  ├─ services/
+│  │  └─ store/
+│  ├─ store/
+│  ├─ app.ts
+│  ├─ app.routes.ts
+│  └─ app.config.ts
+├─ environments/
+├─ styles.css
+├─ main.ts
+└─ main.server.ts
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Prerrequisitos
 
-## Code scaffolding
+Instala lo siguiente en tu equipo:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Node.js (recomendado LTS 20+)
+2. Git
+3. Angular CLI
+4. Bun
+5. Proyecto backend Node.js llamado **`repo-interview-main`**
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Comandos útiles para verificar instalación:
 
 ```bash
-ng build
+node -v
+npm -v
+git --version
+ng version
+bun --version
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Instalación global de Angular CLI (si no lo tienes):
 
 ```bash
-ng test
+npm install -g @angular/cli
 ```
 
-## Running end-to-end tests
+## Levantar backend (repo-interview-main)
 
-For end-to-end (e2e) testing, run:
+1. Clona o ubica el proyecto `repo-interview-main`.
+2. Entra a la carpeta del backend.
+3. Instala dependencias.
+4. Ejecuta el servidor.
+5. Verifica que quede disponible en `http://localhost:3002` (base usada por este frontend).
+
+Ejemplo genérico:
 
 ```bash
-ng e2e
+cd repo-interview-main
+npm install
+npm run start:dev
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Nota:
+- Si el backend usa otro script (`dev`, `start:dev`, etc.), usa el definido en su `package.json`.
 
-## Additional Resources
+## Levantar frontend (este proyecto Angular)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. En una terminal nueva, entra a este proyecto.
+2. Instala dependencias.
+3. Ejecuta Angular.
+
+```bash
+cd app-bank-prueba
+npm install
+npm start
+```
+
+La aplicación debe abrir en:
+
+- http://localhost:4200/products
+
+## Scripts principales
+
+```bash
+npm start          # Levanta Angular en desarrollo
+npm run build      # Compila la app
+npm test           # Ejecuta pruebas unitarias con Jest
+npm run test:watch # Ejecuta Jest en modo watch
+```
+
+## Flujo recomendado de ejecución
+
+1. Levantar primero `repo-interview-main` (backend).
+2. Levantar luego `app-bank-prueba` (frontend).
+3. Abrir `http://localhost:4200/products`.
+
+## Solución de problemas rápida
+
+- Si falla el consumo de APIs, valida que backend esté arriba en `localhost:3002`.
+- Si `ng` no existe, reinstala Angular CLI global.
+- Si hay conflicto de dependencias, elimina `node_modules` y reinstala:
+
+```bash
+rm -rf node_modules package-lock.json   # Linux/Mac
+# o en PowerShell:
+# Remove-Item -Recurse -Force node_modules, package-lock.json
+npm install
+```
