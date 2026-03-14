@@ -39,8 +39,7 @@ Instala lo siguiente en tu equipo:
 1. Node.js (recomendado LTS 20+)
 2. Git
 3. Angular CLI
-4. Bun
-5. Proyecto backend Node.js llamado **`repo-interview-main`**
+4. Proyecto backend Node.js llamado **`repo-interview-main`**
 
 Comandos útiles para verificar instalación:
 
@@ -49,7 +48,6 @@ node -v
 npm -v
 git --version
 ng version
-bun --version
 ```
 
 Instalación global de Angular CLI (si no lo tienes):
