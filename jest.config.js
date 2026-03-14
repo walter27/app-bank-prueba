@@ -1,10 +1,15 @@
 module.exports = {
- preset: 'jest-preset-angular',
- setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
- testPathIgnorePatterns: [
-  '<rootDir>/node_modules/',
-  '.*\\.e2e\\.spec\\.ts$',
-  '.*\\.functional\\.spec\\.ts$',
- ],
- globalSetup: 'jest-preset-angular/global-setup',
+  preset: 'jest-preset-angular',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testMatch: ['**/*.spec.ts'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  collectCoverageFrom: [
+    'src/app/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.routes.ts',
+    '!src/main.ts',
+    '!src/main.server.ts',
+    '!src/server.ts',
+  ],
 };

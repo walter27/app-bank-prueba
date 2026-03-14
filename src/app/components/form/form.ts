@@ -38,7 +38,11 @@ export class Form {
   ngOnInit(): void {    
     const controls: Record<string, unknown> = {};
     this.fields().forEach((field: FieldConfig) => {
-      controls[field.name] = [{ value: field.value ?? '', disabled: !!field.disabled }, field.validators ?? []];
+      controls[field.name] = [
+        { value: field.value ?? '', disabled: !!field.disabled },
+        field.validators ?? [],
+        field.asyncValidators ?? [],
+      ];
     });
     this.form = this.fb.group(controls);
   }
@@ -54,13 +58,5 @@ export class Form {
   hasError(name: string): boolean {
     const control = this.form.get(name);
     return !!(control && control.invalid && control.touched);
-  }
-
-  private chunkFields(fields: FieldConfig[], size: number): FieldConfig[][] {
-    const chunks: FieldConfig[][] = [];
-    for (let index = 0; index < fields.length; index += size) {
-      chunks.push(fields.slice(index, index + size));
-    }
-    return chunks;
   }
 }

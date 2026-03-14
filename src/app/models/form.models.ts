@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import { AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 export type FieldType =
   | 'text'
@@ -33,4 +33,5 @@ export interface FieldConfig {
   accept?: string;
   multiple?: boolean;
   validators?: ValidatorFn[];
+  asyncValidators?: AsyncValidatorFn[];
 }

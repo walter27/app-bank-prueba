@@ -6,6 +6,9 @@ import {
   OnInit,
   effect,
 } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Table, TableColumn } from '../components/table/table';
 import { Modal } from '../components/modal/modal';
 import { Message } from '../components/message/message';
@@ -75,7 +78,7 @@ export class ProductContainer implements OnInit {
 
   onAdd(): void {
     this.productStore.setProductState({ productSelected: null });
-    this.formStore.setFormState({ fields: PRODUCT_FORM_FIELDS });
+    this.setFormFields(null);
     this.modalStore.setModalState({
       modalMode: 'form',
       open: true,
@@ -163,7 +166,11 @@ export class ProductContainer implements OnInit {
 
     const productSelected = this.productStore.productSelected();
     const idValue = productSelected?.id;
-    let product = { ...this.formComponent?.form.value } as Product;
+    const rawFormValue = this.formComponent?.form.getRawValue() ?? {};
+    const product = {
+      ...(rawFormValue as Product),
+      id: idValue ?? (rawFormValue as Product).id,
+    } as Product;
     this.productStore.setProductState({ productSelected: product });
     idValue ? this.httpService.updateProduct() : this.httpService.addProduct();
   }
@@ -178,8 +185,26 @@ export class ProductContainer implements OnInit {
     const fields = PRODUCT_FORM_FIELDS.map((field) => ({
       ...field,
       disabled: !!product && field.name === 'id',
+      asyncValidators:
+        !product && field.name === 'id'
+          ? [this.idAvailabilityValidator()]
+          : [],
       value: product ? ((product as unknown as Record<string, unknown>)[field.name] ?? '') : '',
     }));
     this.formStore.setFormState({ fields });
+  }
+
+  private idAvailabilityValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      const id = String(control.value ?? '').trim();
+      if (!id) {
+        return of(null);
+      }
+
+      return this.httpService.verifyProductId(id).pipe(
+        map((exists) => (exists ? { idAlreadyExists: true } : null)),
+        catchError(() => of(null)),
+      );
+    };
   }
 }

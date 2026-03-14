@@ -35,6 +35,10 @@ export class ProductService {
       });
   }
 
+  verifyProductId(id: string) {
+    return this.http.get<boolean>(`${this.baseUrl}/products/verification/${encodeURIComponent(id)}`);
+  }
+
   addProduct(): void {
     const productSelected = this.productStore.productSelected();
     if (!productSelected) {
