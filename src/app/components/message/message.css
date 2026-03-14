@@ -1,0 +1,88 @@
+.app-status-section {
+  width: 100%;
+  padding: var(--spacing-sm) 0;
+}
+
+.app-status-card {
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: none;
+}
+
+.app-status-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.app-status-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 2px solid currentColor;
+  color: var(--status-success);
+}
+
+.app-status-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.app-subtitle {
+  margin: 0;
+  max-width: 520px;
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.app-status-error .app-status-icon {
+  color: var(--status-error);
+}
+
+.app-status-warning .app-status-icon {
+  color: var(--status-warning);
+}
+
+@media (max-width: 767px) {
+  .app-status-card {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+
+  .app-status-content {
+    gap: var(--spacing-lg);
+  }
+
+  .app-status-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .app-status-icon svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .app-subtitle {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (min-width: 640px) {
+  .app-status-section {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .app-status-icon svg {
+    width: 46px;
+    height: 46px;
+  }
+}

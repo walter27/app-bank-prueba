@@ -8,7 +8,7 @@ export interface Product {
 }
 
 export interface ResponseDto {
-    data: ProductDto[];
+    data: ProductDto | ProductDto[] | null;
     message: string;
 }
 

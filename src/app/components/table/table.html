@@ -1,0 +1,110 @@
+@let rowsHtml = rows();
+<div class="table-layout">
+  @if (showToolbar()) {
+    <div class="table-toolbar">
+      <div class="table-search">
+        <label class="table-search-label" for="table-search">{{ searchLabel() }}</label>
+        <input
+          class="table-input"
+          type="text"
+          id="table-search"
+          [placeholder]="searchPlaceholder()"
+          (keyup)="onSearch($any($event.target).value)"
+        />
+      </div>
+      <div class="table-actions">
+        <button class="table-button table-button-primary" type="button" (click)="onAdd()">
+          {{ addButtonLabel() }}
+        </button>
+      </div>
+    </div>
+  }
+  <div class="table-shell">
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            @for (column of columns(); track column.key) {
+              <th>{{ column.label ?? column.key }}</th>
+            }
+            <th class="table-actions-header"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (loading()) {
+            @for (_ of skeletonRows; track $index) {
+              <tr>
+                @for (column of columns(); track column.key) {
+                  <td>
+                    <span class="skeleton table-skeleton-cell"></span>
+                  </td>
+                }
+                <td class="table-actions-cell">
+                  <span class="skeleton table-skeleton-action"></span>
+                </td>
+              </tr>
+            }
+          } @else if (rowsHtml.length === 0) {
+            <tr>
+              <td class="table-empty" [attr.colspan]="columns().length + 1">
+                No hay datos para mostrar.
+              </td>
+            </tr>
+          } @else {
+            @for (row of rowsHtml; track $index) {
+              <tr>
+                @for (column of columns(); track column.key) {
+                  <td>
+                    @if (column.type === 'image') {
+                      @let imageSrc = getImageSrc(column, row);
+                      <img
+                        class="table-image"
+                        [src]="imageSrc"
+                        [alt]="column.label ?? column.key"
+                        (error)="onImageError($event)"
+                      />
+                    } @else {
+                      <span class="table-cell">{{ formatCell(column, row) }}</span>
+                    }
+                  </td>
+                }
+                <td class="table-actions-cell">
+                  <button
+                    type="button"
+                    class="table-action-button"
+                    aria-label="Acciones"
+                    (click)="toggleActions($index, $event)">
+                    <span class="table-action-dots">&#8942;</span>
+                  </button>
+                  @if (openActionsRow === $index) {
+                    <div class="table-action-menu" (click)="onActionMenuClick($event)">
+                      <button type="button" class="table-action-menu-item" (click)="onActionEdit(row)">
+                        Editar
+                      </button>
+                      <button type="button" class="table-action-menu-item" (click)="onActionDelete(row)">
+                        Eliminar
+                      </button>
+                    </div>
+                  }
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="table-pagination">
+    @if (loading()) {
+      <span class="skeleton table-skeleton-results"></span>
+      <span class="skeleton table-skeleton-select"></span>
+    } @else {
+      <span class="table-results">{{ rowsHtml.length }} Resultados</span>
+      <select class="table-select" (change)="onPageChange($event)">
+        @for (page of pageSizes(); track page) {
+          <option [value]="page" [selected]="page === currentPageSize()">{{ page }}</option>
+        }
+      </select>
+    }
+  </div>
+</div>

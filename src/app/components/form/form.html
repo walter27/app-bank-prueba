@@ -1,0 +1,23 @@
+@let formFields = sortedFields();
+<form [formGroup]="form" (ngSubmit)="submit()" class="app-form">
+  <div class="app-form-grid" [style.grid-template-columns]="'repeat(' + gridColumnCount() + ', minmax(0, 1fr))'">
+    @for (field of formFields; track field.name) {
+      <div class="app-form-field" [style.grid-row]="field.row ?? 'auto'" [style.grid-column]="field.column ?? 'auto'">
+        @if (field.type === 'text' || field.type === 'email' || field.type === 'password' || field.type === 'date') {
+          <label class="app-label">{{ field.label }}</label>
+          <input
+            [type]="field.type"
+            [formControlName]="field.name"
+            [placeholder]="field.placeholder || ''"
+            class="app-field"
+            [ngClass]="{
+              'app-field-error': hasError(field.name)
+            }" />
+          @if (hasError(field.name)) {
+            <small class="app-error-text">Campo invalido</small>
+          }
+        }
+      </div>
+    }
+  </div>
+</form>

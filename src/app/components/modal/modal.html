@@ -1,0 +1,19 @@
+<div class="modal-backdrop" [class.modal-backdrop--closing]="isClosing">
+  <div class="modal-card" [class.modal-card--closing]="isClosing">
+    <div class="modal-header">
+      <span>{{ title() }}</span>
+      <button class="modal-close" [disabled]="isSubmitting()" (click)="onClose()">X</button>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary modal-action" type="button" [disabled]="isSubmitting()" (click)="onClose()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary modal-action" type="button" [disabled]="isSubmitting()" (click)="onConfirm()">
+        Aceptar
+      </button>
+    </div>
+  </div>
+</div>

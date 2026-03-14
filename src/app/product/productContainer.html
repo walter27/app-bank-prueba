@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="products-layout">
+    <div class="products-title">
+      @if (isLoadingList()) {
+        <span class="products-title-skeleton"></span>
+      } @else {
+        <h1>BANCO</h1>
+      }
+    </div>
+    <app-table
+      (pageChange)="onPageChange($event)"
+      (edit)="onEdit($event)"
+      (remove)="onRemove($event)"
+      (search)="onSearch($event)"
+      (add)="onAdd()"
+    />
+    @if (openModal()) {
+      <app-modal (confirm)="onModalConfirm()">
+        @if (isSubmitting()) {
+          <div class="product-modal-skeleton">
+            <span class="product-modal-line"></span>
+            <span class="product-modal-line"></span>
+            <span class="product-modal-line product-modal-line-short"></span>
+          </div>
+        } @else if (!success() && !error() && !warning()) {
+          <app-form />
+        } @else {
+          <app-message />
+        }
+      </app-modal>
+    }
+  </div>
+</div>
